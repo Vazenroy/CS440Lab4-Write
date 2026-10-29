@@ -1,9 +1,11 @@
 # Vacuum MDP Environment
 
 ## Environment
-- Grid size: 4 columns by 3 rows
+- Grid size: 4 columns by 4 rows
 - Agent: vacuum robot
 - State: robot coordinate position
+- Obstacle: cell marked by 'X', cannot be entered
+- Terminal States: -1 and 10
 
 ## Actions
 - Up
@@ -12,12 +14,18 @@
 - Right
 
 ## Transition model
-Describe how each action changes the state,
-including what happens at walls or boundaries.
+- 80% chance of moving in intended direction (go North)
+- 10% chance of moving leftmost of the intended direction (go West)
+- 10% chance of moving rightmost of the intended direction (go East)
+- if movement results in colliding with an obstacle or wall, agent remains in current position
 
 ## Reward model
-Describe the reward for each action or resulting state.
+- Living costs: -0.05, -2, 2
+- Terminal costs: -1, 10
 
 ## Agent
-Describe how the agent selects an action using
-the MDP model.
+- Type: MDP-based vacuum agent
+- Discount Factor: 0.9
+- Uses AIMA's GridMDP
+- Continues selecting actions until reaching terminal state or exhausting moves
+- Max actions: 15
